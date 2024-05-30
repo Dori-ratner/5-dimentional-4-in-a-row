@@ -18,6 +18,11 @@ download the file from your drive or conect your pc to drive and copy the filpat
 
 also make sure the papameter `fesh_play = False` is set to `True` when you wish to play aginst the pre traind nural net.
 
+after one game played the weights will be saved on this file so you shold set  `fesh_play = True`
+
+    Q_net.save_weights(r'5 dimentional 4 in a row\model_register\Q_net.weights.h5')
+
+
 # other papameters:
 
 SQURESIZE = 125 - the size of the game

@@ -89,7 +89,7 @@ fresh_play = False
 if (fresh_play == True):
      link = r"G:\האחסון שלי\dqn_10000_wheights.h5"
 else:
-     link = r"C:\Users\dorir\OneDrive\Desktop\5 dimentional 4 in a row\model_register\Q_net.weights.h5"
+     link = r"C:5 dimentional 4 in a row\model_register\Q_net.weights.h5"
 
 Q_net.load_weights(link)
 Q_net.save_weights(r'C:\Users\dorir\OneDrive\Desktop\5 dimentional 4 in a row\model_register\Q_net.weights.h5')
@@ -269,4 +269,4 @@ for i in range(len(states)):
 history = Q_net.fit(states,Q_values, epochs = 100,verbose =1)
 Target_net.set_weights(Q_net.get_weights())# move whights every 10 epocs
 
-Q_net.save_weights(r'C:\Users\dorir\OneDrive\Desktop\5 dimentional 4 in a row\model_register\Q_net.weights.h5')
+Q_net.save_weights(r'5 dimentional 4 in a row\model_register\Q_net.weights.h5')
