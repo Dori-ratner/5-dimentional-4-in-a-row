@@ -86,14 +86,17 @@ Q_net.compile(optimizer=Adam(learning_rate=ALPHA), loss="mse")
 
 fresh_play = False
 
-if(os.path.exists(r"C:5 dimentional 4 in a row\model_register\Q_net.weights.h5") == False):
+if(os.path.exists(r"C:\Users\dorir\OneDrive\Desktop\5 dimentional 4 in a row\model_register\Q_net.weights.h5") == False):
      fresh_play = True #play aginst ai from notebook;
+     print('no erlier games trained;')
 
 #get the pre trained model from my drive
 if (fresh_play == True):
      link = r"G:\האחסון שלי\dqn_10000_wheights.h5"
 else:
-     link = r"C:5 dimentional 4 in a row\model_register\Q_net.weights.h5"
+     link = r"C:\Users\dorir\OneDrive\Desktop\5 dimentional 4 in a row\model_register\Q_net.weights.h5"
+
+print("playing aginst:"+link)
 
 Q_net.load_weights(link)
 Q_net.save_weights(r'C:\Users\dorir\OneDrive\Desktop\5 dimentional 4 in a row\model_register\Q_net.weights.h5')
@@ -254,23 +257,24 @@ if(len(states)-1 == len(actions) and len(states) < 42):actions.append(-1)# add l
 for l in range(0,len(actions)-1):
     reply_buffer.append((states[l].reshape(42), states[l+1].reshape(42), rew  , actions[l]))#reward part of the BELLMAN EQU
 
-batch = reply_buffer
-states,next_states ,rew , actions = zip(*batch)
-#----------------
-states = np.array(states)
-next_states = np.array(next_states)
-rew = np.array(rew)
-actions  = np.array(actions)
-#----------------
-Q_values = Q_net.predict(states,verbose = 0)
-next_Q = Target_net.predict(next_states,verbose = 0)
-for i in range(len(states)):
-    if(i!=len(states)-1):#calaulate reward
-        Q_values[i,actions[i]] = rew[i] + 0.99 * np.max(next_Q[i]) #bellman equeation
-    else:
-        Q_values[i,actions[i]] = rew[i]
-#train the model
-history = Q_net.fit(states,Q_values, epochs = 100,verbose =1)
-Target_net.set_weights(Q_net.get_weights())# move whights every 10 epocs
+for i in range(0,100):
+     batch = reply_buffer
+     states,next_states ,rew , actions = zip(*batch)
+     #----------------
+     states = np.array(states)
+     next_states = np.array(next_states)
+     rew = np.array(rew)
+     actions  = np.array(actions)
+     #----------------
+     Q_values = Q_net.predict(states,verbose = 0)
+     next_Q = Target_net.predict(next_states,verbose = 0)
+     for i in range(len(states)):
+         if(i!=len(states)-1):#calaulate reward
+             Q_values[i,actions[i]] = rew[i] + 0.99 * np.max(next_Q[i]) #bellman equeation
+         else:
+             Q_values[i,actions[i]] = rew[i]
+     #train the model
+     history = Q_net.fit(states,Q_values, epochs = 1,verbose =1)
+     Target_net.set_weights(Q_net.get_weights())# move whights every 10 epocs
 
-Q_net.save_weights(r'5 dimentional 4 in a row\model_register\Q_net.weights.h5')
+Q_net.save_weights(r'C:\Users\dorir\OneDrive\Desktop\5 dimentional 4 in a row\model_register\Q_net.weights.h5')
