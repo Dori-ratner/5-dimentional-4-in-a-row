@@ -22,6 +22,7 @@ import math
 import env 
 import random
 import keras
+import os
 pygame.init()
 
 BLUE = (0,0,255)
@@ -84,6 +85,9 @@ ALPHA=0.1
 Q_net.compile(optimizer=Adam(learning_rate=ALPHA), loss="mse")
 
 fresh_play = False
+
+if(os.path.exists(r"C:5 dimentional 4 in a row\model_register\Q_net.weights.h5") == False):
+     fresh_play = True #play aginst ai from notebook;
 
 #get the pre trained model from my drive
 if (fresh_play == True):
